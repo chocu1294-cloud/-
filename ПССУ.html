@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Психоневрологический интернат</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333; line-height: 1.6; min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header {
+            background: rgba(255,255,255,0.95);
+            padding: 20px 0; border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            text-align: center; margin-bottom: 30px;
+        }
+        .logo { font-size: 2.5em; font-weight: bold; color: #4a5568; margin-bottom: 10px; }
+        .logo-subtitle { font-size: 1.2em; color: #718096; margin-bottom: 20px; }
+        .main-nav { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .nav-btn {
+            padding: 12px 25px; background: #4299e1; color: white;
+            border: none; border-radius: 8px; cursor: pointer;
+            font-size: 16px; font-weight: 600; transition: 0.3s;
+        }
+        .nav-btn:hover { background: #3182ce; transform: translateY(-2px); }
+        .nav-btn.active { background: #2b6cb0; }
+        .page { display: none; animation: fadeIn 0.5s ease-in; }
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .main-content { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; }
+        .photo-section {
+            background: white; padding: 30px; border-radius: 15px;
+            text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .photo-placeholder {
+            width: 200px; height: 200px;
+            background: #e2e8f0; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            border: 3px dashed #cbd5e0;
+            background-size: cover; background-position: center;
+        }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px;
+            cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .btn-primary { background: #4299e1; color: #fff; }
+        .btn-danger { background: #e53e3e; color: #fff; }
+        .btn-success { background: #48bb78; color: #fff; }
+        .btn-warning { background: #ed8936; color: #fff; }
+
+        .contacts-section {
+            background: white; padding: 30px; border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .contact-input {
+            width: 100%; padding: 12px; border: 2px solid #e2e8f0;
+            border-radius: 8px; margin-top: 5px;
+        }
+        .section-title {
+            text-align: center; font-size: 1.8em;
+            margin-bottom: 20px; border-bottom: 3px solid #4299e1;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+    <div class="logo">Психоневрологический интернат</div>
+    <div class="logo-subtitle">Социальное стационарное учреждение</div>
+    <nav class="main-nav">
+        <button class="nav-btn active" onclick="showPage('main')">🏠 Главная</button>
+        <button class="nav-btn" onclick="showPage('about')">ℹ️ О нас</button>
+        <button class="nav-btn" onclick="showPage('services')">🛠 Услуги</button>
+        <button class="nav-btn" onclick="showPage('vacancies')">💼 Вакансии</button>
+        <button class="nav-btn" onclick="showPage('contacts')">📞 Контакты</button>
+    </nav>
+</header>
+
+<!-- Главная страница -->
+<div id="main" class="page active">
+    <div class="main-content">
+
+        <div class="photo-section">
+            <div id="photoPlaceholder" class="photo-placeholder">🏥 Фото учреждения</div>
+            <button class="btn btn-primary" onclick="addPhoto()">Добавить фото</button>
+            <button class="btn btn-danger" onclick="removePhoto()">Удалить фото</button>
+        </div>
+
+        <div class="contacts-section">
+            <h2 class="section-title">Контактная информация</h2>
+
+            <label>Адрес</label>
+            <input id="address" class="contact-input">
+
+            <label>Телефон</label>
+            <input id="phone" class="contact-input">
+
+            <label>Email</label>
+            <input id="email" class="contact-input">
+
+            <label>Описание</label>
+            <textarea id="description" class="contact-input" rows="4"></textarea>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- О нас -->
+<div id="about" class="page">
+    <div class="contacts-section">
+        <h2 class="section-title">О нас</h2>
+
+        <p>
+            Психоневрологический интернат — это государственное стационарное учреждение
+            социального обслуживания, предназначенное для постоянного проживания граждан,
+            нуждающихся в уходе, наблюдении и социально-медицинской поддержке.
+        </p>
+
+        <h3>Основные задачи учреждения:</h3>
+        <ul>
+            <li>оказание круглосуточного ухода;</li>
+            <li>медицинское наблюдение и сопровождение;</li>
+            <li>организация реабилитационных мероприятий;</li>
+            <li>социальная адаптация проживающих;</li>
+            <li>создание безопасной и комфортной среды.</li>
+        </ul>
+
+        <p>
+            Наш коллектив состоит из квалифицированных специалистов: врачей, медсестёр,
+            психологов, социальных работников, младшего персонала и инструкторов по труду.
+        </p>
+
+        <p>
+            Мы стремимся обеспечить каждому проживающему индивидуальный подход,
+            внимание, поддержку и достойные условия жизни.
+        </p>
+    </div>
+</div>
+
+
+<!-- Услуги -->
+<div id="services" class="page">
+    <div class="contacts-section">
+        <h2 class="section-title">Услуги</h2>
+
+        <ul>
+            <li>Социально-бытовое обслуживание</li>
+            <li>Круглосуточный уход</li>
+            <li>Медицинское наблюдение</li>
+            <li>Лечебно-реабилитационные занятия</li>
+            <li>Психологическая поддержка</li>
+            <li>Организация досуговой деятельности</li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- Вакансии -->
+<div id="vacancies" class="page">
+    <div class="contacts-section">
+        <h2 class="section-title">Вакансии</h2>
+
+        <button class="btn btn-success" onclick="showVacancyForm()">Добавить вакансию</button>
+        <button class="btn btn-warning" onclick="clearAllVacancies()">Очистить список</button>
+
+        <div id="vacancyForm" style="display:none; margin-top:20px;">
+            <input id="vacancyTitle" class="contact-input" placeholder="Должность">
+            <input id="vacancySalary" class="contact-input" placeholder="Зарплата">
+            <input id="vacancyCompany" class="contact-input" placeholder="Отдел">
+            <textarea id="vacancyDescription" class="contact-input" placeholder="Описание" rows="3"></textarea>
+            <textarea id="vacancyRequirements" class="contact-input"
+                      placeholder="Требования (каждое с новой строки)" rows="3"></textarea>
+            <button class="btn btn-success" onclick="addVacancy()">Сохранить</button>
+            <button class="btn btn-danger" onclick="hideVacancyForm()">Отмена</button>
+        </div>
+
+        <div id="vacanciesList" style="margin-top:20px;"></div>
+    </div>
+</div>
+
+
+<!-- Контакты -->
+<div id="contacts" class="page">
+    <div class="contacts-section">
+        <h2 class="section-title">Контакты</h2>
+
+        <p><b>Адрес:</b><br> Московский район село беловодское,<br> ул. крупская 69</p>
+        <p><b>Телефоны:</b><br> +996 (29) 000-00-00<br> +996 (17) 000-00-00</p>
+        <p><b>Email:</b><br> info@example.by</p>
+        <p><b>Часы посещений:</b><br> Ежедневно с 10:00 до 18:00</p>
+        <p><b>Горячая линия:</b><br> +996 (29) 111-11-11</p>
+    </div>
+</div>
+
+
+<script>
+function showPage(id) {
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+    if(id==='vacancies') renderVacancies();
+}
+
+/* Фото */
+function addPhoto() {
+    const inp = document.createElement("input");
+    inp.type="file"; inp.accept="image/*";
+    inp.onchange=e=>{
+        const f=e.target.files[0];
+        const r=new FileReader();
+        r.onload=i=>{
+            const block=document.getElementById("photoPlaceholder");
+            block.style.backgroundImage=`url(${i.target.result})`;
+            block.innerHTML="";
+            block.style.border="none";
+            localStorage.setItem("mainPhoto", i.target.result);
+        };
+        r.readAsDataURL(f);
+    }
+    inp.click();
+}
+function removePhoto(){
+    localStorage.removeItem("mainPhoto");
+    const block=document.getElementById("photoPlaceholder");
+    block.style.backgroundImage="none";
+    block.innerHTML="🏥 Фото учреждения";
+    block.style.border="3px dashed #cbd5e0";
+}
+
+/* Сохранение контактных полей */
+document.querySelectorAll(".contact-input").forEach(inp=>{
+    const saved=localStorage.getItem(inp.id);
+    if(saved) inp.value=saved;
+    inp.addEventListener("input",()=>localStorage.setItem(inp.id, inp.value));
+});
+
+/* Вакансии */
+let vacancies = JSON.parse(localStorage.getItem("vacancies") || "[]");
+
+function showVacancyForm(){ vacancyForm.style.display="block"; }
+function hideVacancyForm(){ vacancyForm.style.display="none"; }
+
+function addVacancy(){
+    const v = {
+        id: Date.now(),
+        title: vacancyTitle.value,
+        salary: vacancySalary.value,
+        company: vacancyCompany.value,
+        description: vacancyDescription.value,
+        requirements: vacancyRequirements.value.split("\n")
+    };
+    vacancies.push(v);
+    localStorage.setItem("vacancies", JSON.stringify(vacancies));
+    renderVacancies();
+    hideVacancyForm();
+}
+
+function renderVacancies(){
+    const list=document.getElementById("vacanciesList");
+    if(vacancies.length===0){
+        list.innerHTML="<p>Нет вакансий</p>";
+        return;
+    }
+    list.innerHTML = vacancies.map(v => `
+        <div style="padding:15px;border:1px solid #ccc;margin-bottom:10px;border-radius:8px;">
+            <h3>${v.title}</h3>
+            <p><b>Зарплата:</b> ${v.salary}</p>
+            <p><b>Отдел:</b> ${v.company}</p>
+            <p>${v.description}</p>
+            <ul>${v.requirements.map(r=>`<li>${r}</li>`).join("")}</ul>
+            <button class="btn btn-danger" onclick="deleteVacancy(${v.id})">Удалить</button>
+        </div>
+    `).join("");
+}
+
+function deleteVacancy(id){
+    vacancies = vacancies.filter(v=>v.id!==id);
+    localStorage.setItem("vacancies", JSON.stringify(vacancies));
+    renderVacancies();
+}
+
+function clearAllVacancies(){
+    if(confirm("Очистить все вакансии?")){
+        vacancies=[]; localStorage.setItem("vacancies","[]");
+        renderVacancies();
+    }
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+    const saved=localStorage.getItem("mainPhoto");
+    if(saved){
+        const block=document.getElementById("photoPlaceholder");
+        block.style.backgroundImage=`url(${saved})`;
+        block.innerHTML="";
+        block.style.border="none";
+    }
+    renderVacancies();
+});
+</script>
+
+</body>
+</html>
