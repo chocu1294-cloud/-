@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Таблица с выбором цвета RGB-подсветки</title>
+<style>
+  body {
+    background-color: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+  }
+
+  table {
+    border-collapse: collapse;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    margin-top: 30px;
+  }
+
+  th, td {
+    border: 1px solid #444;
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  th {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  /* Анимация RGB */
+  @keyframes rgbGlow {
+    0%   { background-color: rgb(255, 0, 0); }
+    25%  { background-color: rgb(0, 255, 0); }
+    50%  { background-color: rgb(0, 0, 255); }
+    75%  { background-color: rgb(255, 255, 0); }
+    100% { background-color: rgb(255, 0, 255); }
+  }
+
+  /* Когда активна подсветка */
+  .glow th, 
+  .glow td {
+    animation: rgbGlow 5s infinite alternate;
+    animation-delay: calc(var(--delay, 0) * 1s);
+  }
+
+  /* Выпадающий список */
+  select, button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #222;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #333;
+  }
+</style>
+</head>
+<body>
+
+  <h2>Выбери wdtn</h2>
+  <select id="colorSelect">
+    <option value="">-- Выберите цвет --</option>
+    <option value="red">Красный</option>
+    <option value="green">Зелёный</option>
+    <option value="blue">Синий</option>
+    <option value="yellow">Жёлтый</option>
+    <option value="magenta">Пурпурный</option>
+  </select>
+  <button id="startBtn">Включить подсветку</button>
+
+  <table id="studentsTable">
+    <tr>
+      <th style="--delay:0">№</th>
+      <th style="--delay:0.2">Имя ученика</th>
+      <th style="--delay:0.4">Класс</th>
+    </tr>
+    <tr><td style="--delay:0.1">1</td><td style="--delay:0.3">Анна Иванова</td><td style="--delay:0.5">9А</td></tr>
+    <tr><td style="--delay:0.2">2</td><td style="--delay:0.6">Максим Петров</td><td style="--delay:0.8">9А</td></tr>
+    <tr><td style="--delay:0.4">3</td><td style="--delay:1.0">София Кузнецова</td><td style="--delay:1.2">9А</td></tr>
+    <tr><td style="--delay:0.3">4</td><td style="--delay:0.9">Илья Сидоров</td><td style="--delay:1.1">9А</td></tr>
+    <tr><td style="--delay:0.7">5</td><td style="--delay:1.4">Дмитрий Орлов</td><td style="--delay:1.6">9А</td></tr>
+    <tr><td style="--delay:0.5">6</td><td style="--delay:1.3">Полина Смирнова</td><td style="--delay:1.7">9А</td></tr>
+    <tr><td style="--delay:0.9">7</td><td style="--delay:1.8">Егор Павлов</td><td style="--delay:2.0">9А</td></tr>
+    <tr><td style="--delay:0.6">8</td><td style="--delay:1.9">Виктория Белова</td><td style="--delay:2.2">9А</td></tr>
+    <tr><td style="--delay:1.0">9</td><td style="--delay:2.4">Алексей Федоров</td><td style="--delay:2.6">9А</td></tr>
+    <tr><td style="--delay:1.1">10</td><td style="--delay:2.8">Мария Кузьмина</td><td style="--delay:3.0">9А</td></tr>
+    <tr><td style="--delay:1.2">11</td><td style="--delay:3.2">Никита Громов</td><td style="--delay:3.4">9А</td></tr>
+  </table>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const colorSelect = document.getElementById('colorSelect');
+    const table = document.getElementById('studentsTable');
+
+    startBtn.addEventListener('click', () => {
+      const color = colorSelect.value;
+
+      if (!color) {
+        alert('Пожалуйста, выберите стартовый цвет!');
+        return;
+      }
+
+      // Устанавливаем выбранный цвет как начальный
+      document.documentElement.style.setProperty('--start-color', color);
+
+      // Добавляем класс для запуска анимации
+      table.classList.add('glow');
+
+      // Меняем стартовую точку анимации
+      const styleSheet = document.styleSheets[0];
+      const keyframes = `
+        @keyframes rgbGlow {
+          0%   { background-color: ${color}; }
+          25%  { background-color: rgb(0, 255, 0); }
+          50%  { background-color: rgb(0, 0, 255); }
+          75%  { background-color: rgb(255, 255, 0); }
+          100% { background-color: rgb(255, 0, 255); }
+        }`;
+      
+      // Удаляем старую анимацию (если была)
+      for (let i = styleSheet.cssRules.length - 1; i >= 0; i--) {
+        if (styleSheet.cssRules[i].name === 'rgbGlow') {
+          styleSheet.deleteRule(i);
+        }
+      }
+
+      // Добавляем новую
+      styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+    });
+  </script>
+
+</body>
+</html>
